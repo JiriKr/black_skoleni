@@ -1,6 +1,6 @@
 services:
   django:
-    image: black_skoleni
+    image: black_skoleni_olc-docker-black
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -9,5 +9,12 @@ services:
         GID: ${GID:-1000}
     ports:
       - 8000:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - black
+  black:
+    image: gitlab-registry.olc.cz/olc-systems/python/docker-black:0.1
+    restart: unless-stopped
     volumes:
       - .:/app
